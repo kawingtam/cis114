@@ -122,8 +122,12 @@
                     <td><input type="text" id="mexicanPesoValue" class="readonly" readonly></td>
                 </tr>
                 <tr>
-                    <td>Enter Amount of U.S. Dollars</td>
-                    <td colspan="2"><input type="number" id="usdAmount" placeholder="Enter amount" oninput="calculateValues()"></td>
+                    <td colspan="2">
+                        <label for="usdAmount">Enter Amount of U.S. Dollars</label>
+                    </td>
+                    <td>
+                        <input type="number" id="usdAmount" name="usdAmount" placeholder="Enter amount" oninput="calculateValues()">
+                    </td>
                 </tr>
             </tbody>
         </table>
