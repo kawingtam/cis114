@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 3 - Part 1</title>
+    <meta name="description" content="Student Grades Input and Calculation">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #87CEEB; 
+            color: #fff;
+            padding: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .content {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="number"], textarea {
+            font-size: 1.2em;
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            max-width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            resize: none;
+        }
+        .links a {
+            display: block;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #555;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 10px 0;
+        }
+        .links a:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Grades</h1>
+    </header>
+    <div class="content">
+        <form id="gradesForm">
+            <label for="hwAvg">Homework Average (0-100):</label>
+            <input type="number" id="hwAvg" name="hwAvg" placeholder="Homework Average" required>
+            
+            <label for="midExam">Mid-Term Exam Score (0-100):</label>
+            <input type="number" id="midExam" name="midExam" placeholder="Mid-Term Exam Score" required>
+            
+            <label for="finalExam">Final Exam Score (0-100):</label>
+            <input type="number" id="finalExam" name="finalExam" placeholder="Final Exam Score" required>
+            
+            <label for="participation">Participation Score (0-100):</label>
+            <input type="number" id="participation" name="participation" placeholder="Participation Score" required>
+            
+            <div class="button-container">
+                <button type="button" onclick="calculateFinalGrade()">Submit</button>
+                <button type="reset">Clear</button>
+            </div>
+        </form>
+        <textarea id="result" readonly></textarea>
+
+        <div class="links">
+            <a href="hw3-part2.html">Part 2: Sales Commission Calculator</a>
+            <a href="hw3-extracredit.html">Extra Credit: Multiplication Learning Game</a>
+            <a href="hw3.html">Back to Homework 3 Main Page</a>
+        </div>
+    </div>
+
+    <script>
+        function calculateFinalGrade() {
+            // Get values from input fields
+            const hwAvg = parseInt(document.getElementById('hwAvg').value);
+            const midExam = parseInt(document.getElementById('midExam').value);
+            const finalExam = parseInt(document.getElementById('finalExam').value);
+            const participation = parseInt(document.getElementById('participation').value);
+
+            // Validate inputs
+            if ([hwAvg, midExam, finalExam, participation].some(val => isNaN(val) || val < 0 || val > 100)) {
+                document.getElementById('result').value = "Error: Please enter valid scores between 0 and 100!";
+                return;
+            }
+
+            // Calculate final average
+            const finalAverage = Math.round((0.5 * hwAvg) + (0.2 * midExam) + (0.2 * finalExam) + (0.1 * participation));
+
+            // Determine letter grade
+            let letterGrade;
+            if (finalAverage >= 90) letterGrade = 'A';
+            else if (finalAverage >= 80) letterGrade = 'B';
+            else if (finalAverage >= 70) letterGrade = 'C';
+            else if (finalAverage >= 60) letterGrade = 'D';
+            else letterGrade = 'F';
+
+            const message = (letterGrade === 'D' || letterGrade === 'F') 
+                ? "Student must retake the course." 
+                : "";
+
+            // Display result
+            document.getElementById('result').value = `Final Average: ${finalAverage}\nLetter Grade: ${letterGrade}\n${message}`;
+        }
+    </script>
+</body>
+</html>
