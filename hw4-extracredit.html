@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 4 - Extra Credit</title>
+    <meta name="description" content="Hollow Square">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #87CEEB; 
+            color: #fff;
+            padding: 20px;
+            border-bottom: 2px solid #ddd;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .content {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #555;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .links a {
+            display: block;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #555;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 10px 0;
+        }
+        .links a:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Homework 4 - Extra Credit</h1>
+    </header>
+    <div class="content">
+        <h1>Create a Hollow Square</h1>
+        <div style="margin-bottom: 40px;"></div>
+
+        <form id="square-form">
+            <label for="size">Enter a number (2-10):</label>
+            
+            <input type="number" id="size" min="2" max="10" required>
+            <div class="button-container">
+                <button type="submit">Draw Square</button>
+                <button type="button" id="clear-button">Clear</button>
+            </div>
+        </form>
+
+        <div id="result" style="font-family: monospace; margin-top: 20px;"></div>
+        <div style="margin-bottom: 40px;"></div>
+
+        <div class="links">
+            <a href="hw4-part1.html">Part 1: Sum and Product Calculations Using For/While Statement</a>
+            <a href="hw4-part2.html">Part 2: Compound Interest</a>
+            <a href="hw4.html">Back to Homework 4 Main Page</a>        
+            <a href="index.html">Back to Main Page</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('square-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const size = parseInt(document.getElementById('size').value);
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = ''; // Clear previous result
+
+            if (isNaN(size) || size < 2 || size > 10) {
+                resultDiv.innerHTML = '<p style="color: red;">Error: Please enter a valid number between 2 and 10.</p>';
+            } else {
+                let square = '';
+
+                // Construct the hollow square
+                for (let i = 0; i < size; i++) {
+                    for (let j = 0; j < size; j++) {
+                        // Print asterisks for the borders
+                        if (i === 0 || i === size - 1 || j === 0 || j === size - 1) {
+                            square += '* ';
+                        } else {
+                            square += '&nbsp;&nbsp;'; // Use non-breaking spaces for hollow part
+                        }
+                    }
+                    square += '<br>'; // New line after each row
+                }
+
+                resultDiv.innerHTML = square; // Display the hollow square
+            }
+        });
+
+        // Clear button functionality
+        document.getElementById('clear-button').addEventListener('click', function() {
+            document.getElementById('size').value = ''; // Clear input
+            document.getElementById('result').innerHTML = ''; // Clear result
+        });
+    </script>
+</body>
+</html>
