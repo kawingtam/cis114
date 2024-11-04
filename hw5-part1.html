@@ -124,22 +124,30 @@
 
             resultArea.innerHTML = "";
 
+            let isValid = true; // Flag to check if form is valid
+
             if (!name) {
                 resultArea.innerHTML += "Please enter your full name.<br>";
+                isValid = false; // Set flag to false if validation fails
             }
             if (!ageGroup) {
                 resultArea.innerHTML += "Please select your age group.<br>";
+                isValid = false;
             }
             if (browsers.length === 0) {
                 resultArea.innerHTML += "Please select at least one browser you have used.<br>";
+                isValid = false;
             }
             if (!moviePreference) {
                 resultArea.innerHTML += "Please select your preferred movie type.<br>";
+                isValid = false;
             }
 
-            if (name && ageGroup && browsers.length > 0 && moviePreference) {
+            if (isValid) {
                 resultArea.innerHTML = "Thanks, your data was submitted!";
             }
+            
+            return isValid; // Return the validation status
         }
 
         function clearForm() {
@@ -210,8 +218,8 @@
             </select>
 
             <div class="button-container">
-                <button type="submit" onclick="validateForm()">Submit</button>
-                <button type="submit" onclick="clearForm()">Clear</button>
+                <button type="button" onclick="if (validateForm()) { document.getElementById('userForm').submit(); }">Submit</button>
+                <button type="button" onclick="clearForm()">Clear</button>
             </div>
         </form>
         <div id="result" class="result"></div>
