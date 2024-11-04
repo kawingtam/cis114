@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 5 - Part 3: July/2019 Census</title>
+    <meta name="description" content="JavaScript Homework 5 - Part 3">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #87CEEB; 
+            color: #fff;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .content {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: calc(100% - 22px);
+            max-width: 500px;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: left; /* Align text to the left */
+            white-space: pre-wrap; /* Preserve whitespace */
+            margin-left: auto; /* Center result area */
+            margin-right: auto; /* Center result area */
+        }
+        .error-message {
+            color: red; /* Make error message red */
+            font-weight: bold; /* Make the error message bold */
+        }
+        .links a {
+            display: block;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #555;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 10px 0;
+        }
+        .links a:hover {
+            background-color: #666;
+        }
+    </style>
+    <script>
+        // Census data
+        const statesData = [
+            { abbr: "AL", name: "Alabama", capital: "Montgomery", population: "4,903,185" },
+            { abbr: "AK", name: "Alaska", capital: "Juneau", population: "731,545" },
+            { abbr: "AZ", name: "Arizona", capital: "Phoenix", population: "7,278,717" },
+            { abbr: "AR", name: "Arkansas", capital: "Little Rock", population: "3,017,825" },
+            { abbr: "CA", name: "California", capital: "Sacramento", population: "39,512,223" },
+            { abbr: "CO", name: "Colorado", capital: "Denver", population: "5,758,736" }
+        ];
+
+        function getStateInfo() {
+            const userInput = document.getElementById("stateInput").value.trim().toLowerCase();
+            const resultArea = document.getElementById("result");
+            resultArea.innerHTML = ""; // Clear previous result
+            
+            // Find matching state data
+            const state = statesData.find(s => s.name.toLowerCase() === userInput || s.abbr.toLowerCase() === userInput);
+
+            if (state) {
+                // Display state information
+                resultArea.innerHTML = `
+                    Thanks for your inquiry, here is the information you requested:<br>
+                    State Abbr: ${state.abbr}<br>
+                    State Name: ${state.name}<br>
+                    Capital: ${state.capital}<br>
+                    Population: ${state.population}
+                `;
+            } else {
+                // Display error message in red
+                const availableStates = statesData.map(s => `${s.name} (${s.abbr})`).join(', ');
+                resultArea.innerHTML = `<span class="error-message">Sorry, we do not have information about this state! We only have information about: ${availableStates}.</span>`;
+            }
+        }
+
+        function clearForm() {
+            document.getElementById("stateInput").value = "";
+            document.getElementById("result").innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Homework 5 - Part 3: July/2019 Census</h1>
+    </header>
+    <div class="content">
+        <form id="stateForm">
+            <p>Enter the full name or abbreviation of the state:</p>
+            <input type="text" id="stateInput" placeholder="e.g., California or CA" required>
+            <div class="button-container">
+                <button type="button" onclick="getStateInfo()">Get State Info</button>
+                <button type="button" onclick="clearForm()">Clear</button>
+            </div>
+        </form>
+        <div id="result" class="result"></div>
+        <div class="links">
+            <a href="hw5-part1.html">Part 1: User Input Form</a>
+            <a href="hw5-part2.html">Part 2: Pulldown Menus</a>
+            <a href="hw5.html">Back to Homework 5 Main Page</a>
+            <a href="index.html">Back to Main Page</a>
+        </div>
+    </div>
+</body>
+</html>
