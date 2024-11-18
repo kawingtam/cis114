@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 6 - Part 2</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            text-align: center;
+        }
+        header {
+            background-color: #87CEEB;
+            color: #fff;
+            padding: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .content {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: left;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        textarea, input[type="text"] {
+            padding: 10px;
+            width: calc(100% - 22px);
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #555;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        .output {
+            width: 90%;
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+            text-align: left;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #87CEEB;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+        a:hover {
+            background-color: #5b9db9;
+        }
+        .links a {
+            display: block;
+            padding: 10px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #555;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 10px 0;
+        }
+        .links a:hover {
+            background-color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Homework 6 - Part 2</h1>
+    </header>
+    <div class="content">
+        <form id="inputForm" onsubmit="processContent(event)">
+            <textarea id="contentInput" placeholder="Enter your content here..." rows="6" required></textarea>
+            <input type="text" id="charInput" maxlength="1" placeholder="Enter a single character" required>
+            <button type="submit">Submit</button>
+            <button type="reset">Clear</button>
+        </form>
+        <div class="output" id="resultArea"></div>
+        <div class="links">
+            <a href="hw6-part1.html">Part 1: User Input Form</a>
+            <a href="hw6-part3.html">Part 3: Phone Number Validation</a>
+            <a href="hw6.html">Back to Homework 6 Page</a>
+            <a href="index.html">Back to Main Page</a>
+        </div>    
+    </div>
+    <script>
+        function processContent(event) {
+            event.preventDefault();  
+            const content = document.getElementById('contentInput').value;
+            const searchChar = document.getElementById('charInput').value.toLowerCase();
+            const resultArea = document.getElementById('resultArea');
+            
+            const count = (content.toLowerCase().split(searchChar).length - 1);
+            
+            if (count > 0) {
+                resultArea.innerHTML = `Character ${searchChar} found ${count} times in the content.`;
+            } else {
+                resultArea.innerHTML = '';
+                const newWindow = window.open('', '', 'width=300,height=100');
+                
+                newWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Error</title>
+                        <style>
+                            body {
+                                font-family: 'Arial', sans-serif;
+                                background-color: #f4f4f4;
+                                color: #333;
+                                text-align: center;
+                                padding: 20px;
+                            }
+                            button {
+                                padding: 10px 20px;
+                                font-size: 1em;
+                                color: #fff;
+                                background-color: #555;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                margin-top: 10px;
+                            }
+                            button:hover {
+                                background-color: #666;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <h2>Character ${searchChar} Not Found</h2>
+                        <p>Search character ${searchChar} not found in the content you typed.</p>
+                        <button onclick="window.close(); window.opener.clearInputs();">Close</button>
+                    </body>
+                </html>
+                `);
+                
+                newWindow.document.close();
+            }
+        }
+
+        function clearInputs() {
+            document.getElementById('contentInput').value = '';
+            document.getElementById('charInput').value = '';
+        }
+    </script>
+</body>
+</html>
