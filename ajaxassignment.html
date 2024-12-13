@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+
+<h1>Homework 8 - AJAX Application</h1>
+
+<button type="button" onclick="loadDoc()">Get CD collection</button>
+<br><br>
+<table id="demo"></table>
+
+<script>
+function loadDoc() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    myFunction(this);
+  }
+  xhttp.open("GET", "cd_catalog.xml");
+  xhttp.send();
+}
+function myFunction(xml) {
+  const xmlDoc = xml.responseXML;
+  const x = xmlDoc.getElementsByTagName("CD");
+  let table = "<tr><th>Artist</th><th>Title</th></tr>";
+  for (let i = 0; i < x.length; i++) {
+    table += "<tr><td>" +
+    x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+    "</td></tr>";
+  }
+  document.getElementById("demo").innerHTML = table;
+}
+</script>
+
+<h2>Explanation of AJAX</h2>
+<p>The JavaScript code uses AJAX to dynamically fetch and display data from an XML file. When the button is clicked, the <code>loadDoc()</code> function is triggered, which creates an <code>XMLHttpRequest</code> object. The <code>onload</code> event handler ensures that the response from the server is processed once it is received. The data is fetched from the "cd_catalog.xml" file and parsed as an XML document.</p>
+<p>The <code>myFunction()</code> function takes the response and iterates through the <code>CD</code> elements in the XML file, extracting the artist and title for each CD. These values are then used to dynamically populate an HTML table, which is displayed on the webpage.</p>
+
+<h2>REST API</h2>
+<p>I have chosen the OpenWeatherMap API for this report. OpenWeatherMap provides weather data for developers, offering real-time and forecasted weather information.</p>
+<p>The API responses are provided in JSON format, which is widely supported and easy to parse in most programming languages. To access the API, developers need to register for a free account and obtain an API key. This key is used to authenticate requests and ensure secure access.</p>
+<p>OpenWeatherMap offers both free and paid plans. The free plan allows developers to make a limited number of requests per minute, making it suitable for smaller projects. For larger projects requiring higher request limits or additional features, paid plans are available with tiered pricing based on the usage volume and features required.</p>
+<p>For detailed information about using the API, developers can refer to the <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap API Documentation</a>, which provides clear instructions and examples for integrating the API into various applications.</p>
+
+</body>
+</html>
