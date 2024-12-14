@@ -93,19 +93,27 @@
 </div>
 
 <script>
-    function loadFacts() {
-        fetch('https://cat-fact.herokuapp.com/facts/random?amount=5')
-            .then(response => response.json())
-            .then(data => {
-                let table = "<tr><th>Cat Facts</th></tr>";
-                data.forEach(fact => {
-                    table += `<tr><td>${fact.text}</td></tr>`;
-                });
-                document.getElementById('demo').innerHTML = table;
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+    function loadDoc() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function() {
+            myFunction(this);
+        }
+        xhttp.open("GET", "cd_catalog.xml");
+        xhttp.send();
+    }
+
+    function myFunction(xml) {
+        const xmlDoc = xml.responseXML;
+        const x = xmlDoc.getElementsByTagName("CD");
+        let table = "<tr><th>Artist</th><th>Title</th></tr>";
+        for (let i = 0; i < x.length; i++) {
+            table += "<tr><td>" +
+            x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+            "</td><td>" +
+            x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+            "</td></tr>";
+        }
+        document.getElementById("demo").innerHTML = table;
     }
 </script>
 
