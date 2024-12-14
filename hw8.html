@@ -31,26 +31,20 @@
           const apiUrl = "https://dashboard.elering.ee/api/nps/price?start=2024-06-01T20%3A59%3A59.999Z&end=2024-06-30T20%3A59%3A59.999Z";
           
           fetch(apiUrl)
-              .then(response => {
-                  if (!response.ok) {
-                      throw new Error("Network response was not ok: " + response.statusText);
-                  }
-                  return response.json();
-              })
-              .then(data => {
-                  document.getElementById("result").innerHTML = `
-                      <h3>Weather Data:</h3>
-                      <pre>${JSON.stringify(data, null, 2)}</pre>
-                  `;
-              })
-              .catch(error => {
-                  document.getElementById("result").innerHTML = `
-                      <p style="color:red;">Failed to fetch data: ${error.message}</p>
-                  `;
-              });
+            .then(response => response.text()) // Get raw response text
+            .then(data => {
+                document.getElementById("result").innerHTML = `
+                    <h3>API Response:</h3>
+                    <pre>${data}</pre>
+                `;
+            })
+            .catch(error => {
+                document.getElementById("result").innerHTML = `
+                    <p style="color:red;">Failed to fetch data: ${error.message}</p>
+                `;
+            });
       }
-  </script>
+    </script>
   
 </body>
 </html>
-
