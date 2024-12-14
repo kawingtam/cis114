@@ -74,47 +74,36 @@
 </header>
 
 <div class="content">
-    <button type="button" onclick="loadDoc()">Get CD collection</button>
+    <button type="button" onclick="loadFacts()">Get Cat Facts</button>
     <br><br>
     <table id="demo"></table>
 
     <h2>Explanation of AJAX</h2>
-    <p>The JavaScript code uses AJAX to dynamically fetch and display data from an XML file. When the button is clicked, the <code>loadDoc()</code> function is triggered, which creates an <code>XMLHttpRequest</code> object. The <code>onload</code> event handler ensures that the response from the server is processed once it is received. The data is fetched from the "cd_catalog.xml" file and parsed as an XML document.</p>
-    <p>The <code>myFunction()</code> function takes the response and iterates through the <code>CD</code> elements in the XML file, extracting the artist and title for each CD. These values are then used to dynamically populate an HTML table, which is displayed on the webpage.</p>
+    <p>The JavaScript code uses AJAX to dynamically fetch and display data from the Cat Facts API. When the button is clicked, the <code>loadFacts()</code> function is triggered, which makes a <code>fetch</code> request to the API. The response is parsed as JSON and used to populate an HTML table with random cat facts.</p>
 
     <h2>REST API</h2>
-    <p>I have chosen the Baguette Radar API for this report. This API provides geolocation information based on an IP address, allowing developers to determine the location details of a user or system.</p>
-    <p>The API endpoint is straightforward to use. For example, the endpoint Baguette Radar API - Example</a> allows you to retrieve information about the IP address <code>127.0.0.1</code>. The response is typically returned in JSON format, which is easy to parse and integrate into modern web applications.</p>
-    <p>To access the API, developers need to ensure they follow the specific usage guidelines provided by Baguette Radar. Based on the example, it does not seem to require an API key for basic functionality, making it accessible for testing and small projects. However, developers should review the API documentation for any rate limits or restrictions on usage.</p>
-    <p>As of now, there is no indication of mandatory fees for using this API. If there are premium features or plans, it would be wise to check the official documentation or contact the service provider for detailed information.</p>
-    <p>For developers looking to integrate this API into their applications, detailed usage guidelines and examples can be found on the Baguette Radar API Documentation</a>. This documentation is crucial for understanding the structure of responses, request methods, and other supported features.</p>
+    <p>I have chosen the Cat Facts API for this project. This API provides random facts about cats, making it a fun and easy way to demonstrate AJAX functionality in web applications.</p>
+    <p>The endpoint <code>https://cat-fact.herokuapp.com/facts/random</code> returns a random cat fact in JSON format. This information can be displayed dynamically on a webpage, making it perfect for educational or entertainment purposes.</p>
 
     <a href="hw8-extracredit.html">Extra Credit: API Integration</a>
     <a href="hw8.html">Back to Homework 8 Page</a>
-    <a href="index.html">Back to Main Page</a></div>
+    <a href="index.html">Back to Main Page</a>
+</div>
 
 <script>
-    function loadDoc() {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function() {
-            myFunction(this);
-        }
-        xhttp.open("GET", "cd_catalog.xml");
-        xhttp.send();
-    }
-
-    function myFunction(xml) {
-        const xmlDoc = xml.responseXML;
-        const x = xmlDoc.getElementsByTagName("CD");
-        let table = "<tr><th>Artist</th><th>Title</th></tr>";
-        for (let i = 0; i < x.length; i++) {
-            table += "<tr><td>" +
-            x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
-            "</td><td>" +
-            x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
-            "</td></tr>";
-        }
-        document.getElementById("demo").innerHTML = table;
+    function loadFacts() {
+        fetch('https://cat-fact.herokuapp.com/facts/random?amount=5')
+            .then(response => response.json())
+            .then(data => {
+                let table = "<tr><th>Cat Facts</th></tr>";
+                data.forEach(fact => {
+                    table += `<tr><td>${fact.text}</td></tr>`;
+                });
+                document.getElementById('demo').innerHTML = table;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
     }
 </script>
 
