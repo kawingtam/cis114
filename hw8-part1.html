@@ -6,38 +6,41 @@
     <title>Homework 8 - AJAX Application</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            text-align: center;
-        }
-        header {
-            background-color: #87CEEB;
-            color: #fff;
-            padding: 20px;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.5em;
-        }
-        .content {
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            text-align: center;
-        }
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 5px;
-        }
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Makes the body take the full viewport height */
+    flex-direction: column;
+}
+
+.content {
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    text-align: center;
+    width: 100%; /* Ensure content takes full width of its parent */
+}
+
+table {
+    margin: 20px auto; /* Centers the table horizontally */
+    width: 80%; /* Set a fixed width for the table */
+}
+
+th, td {
+    padding: 5px;
+    text-align: center; /* Ensures text inside the table is centered */
+}
+
+        
         button {
             padding: 10px 20px;
             font-size: 1.1em;
