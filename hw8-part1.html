@@ -74,20 +74,29 @@
 </header>
 
 <div class="content">
-    <button type="button" onclick="loadFacts()">Get Cat Facts</button>
+    <button type="button" onclick="loadDoc()">Get CD collection</button>
     <br><br>
     <table id="demo"></table>
 
     <h2>Explanation of AJAX</h2>
-    <p>The JavaScript code uses AJAX to dynamically fetch and display data from the Cat Facts API. When the button is clicked, the <code>loadFacts()</code> function is triggered, which makes a <code>fetch</code> request to the API. The response is parsed as JSON and used to populate an HTML table with random cat facts.</p>
+    <p>The JavaScript code uses AJAX to dynamically fetch and display data from an XML file. When the button is clicked, the <code>loadDoc()</code> function is triggered, which creates an <code>XMLHttpRequest</code> object. The <code>onload</code> event handler ensures that the response from the server is processed once it is received. The data is fetched from the "cd_catalog.xml" file and parsed as an XML document.</p>
+    <p>The <code>myFunction()</code> function takes the response and iterates through the <code>CD</code> elements in the XML file, extracting the artist and title for each CD. These values are then used to dynamically populate an HTML table, which is displayed on the webpage.</p>
 
     <h2>REST API</h2>
-    <p>The Cat Facts API is a reliable and easy-to-use API that provides random facts about cats. It returns data in JSON format, making it developer-friendly and ideal for a variety of projects including educational tools, fun apps, and trivia games.</p>
-    <p>No API key is required to use the Cat Facts API, allowing developers to easily integrate it without additional setup. This simplicity makes it accessible for quick implementation and experimentation.</p>
-    <p>There are no fees associated with using the Cat Facts API, as it is hosted on a free Heroku dyno. However, developers should be aware that the initial response time might be slower due to Heroku's free-tier limitations.</p>
-    <p>For more detailed information on how to use the API, developers can refer to the <code>https://alexwohlbruck.github.io/cat-facts/</code> for Cat Facts API Documentation. This resource provides endpoint details, usage examples, and response structures, enabling smooth integration into projects.</p>
+    <p>I have chosen the Cat Facts API for this part of the project. This API provides random cat facts, making it fun and easy to integrate into applications.</p>
+    <p>The endpoint <code>https://cat-fact.herokuapp.com/facts/random</code> can be used to fetch a random cat fact. The response is in JSON format, which is straightforward to parse using JavaScript.</p>
+    <p>For example, here’s a brief demonstration:</p>
+    <pre>
+    GET https://cat-fact.herokuapp.com/facts/random
+    Response:
+    {
+        "text": "Cats can rotate their ears 180 degrees.",
+        "type": "cat"
+    }
+    </pre>
+    <p>Using this endpoint, developers can display dynamic cat facts in their applications. No authentication is required for this feature, making it accessible for small projects and experiments.</p>
 
-    <a href="hw8-extracredit.html">Extra Credit: API Integration</a>
+    <a href="hw8-extracredit.html">Extra Credit: Cat Facts API Integration</a>
     <a href="hw8.html">Back to Homework 8 Page</a>
     <a href="index.html">Back to Main Page</a>
 </div>
