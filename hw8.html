@@ -27,23 +27,22 @@
     <p id="result">Click the button to see the API response.</p>
     
     <script>
-function fetchWeather() {
-    const apiUrl = "https://cors-anywhere.herokuapp.com/https://dashboard.elering.ee/api/nps/price?start=2024-06-01T20%3A59%3A59.999Z&end=2024-06-30T20%3A59%3A59.999Z";
-    
-    fetch(apiUrl)
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("result").innerHTML = `
-                <h3>API Response:</h3>
-                <pre>${data}</pre>
-            `;
-        })
-        .catch(error => {
-            document.getElementById("result").innerHTML = `
-                <p style="color:red;">Failed to fetch data: ${error.message}</p>
-            `;
-        });
-}
+const apiUrl = "https://jsonplaceholder.typicode.com/posts";
+
+fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("result").innerHTML = `
+            <h3>API Response:</h3>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+        `;
+    })
+    .catch(error => {
+        document.getElementById("result").innerHTML = `
+            <p style="color:red;">Failed to fetch data: ${error.message}</p>
+        `;
+    });
+
 
       
     </script>
