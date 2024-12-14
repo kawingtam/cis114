@@ -81,7 +81,6 @@
     </div>
 
     <script>
-        // Function to fetch a random cat fact
         function fetchCatFact() {
             fetch('https://cat-fact.herokuapp.com/facts/random')
                 .then(response => response.json())
@@ -93,7 +92,6 @@
                 });
         }
 
-        // Attach event listener to button
         document.getElementById('newFactBtn').addEventListener('click', fetchCatFact);
     </script>
 </body>
